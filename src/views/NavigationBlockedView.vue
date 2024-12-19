@@ -1,12 +1,14 @@
 <template>
   <div class="about">
     <h1>
-      <span class="gradient-text">This is the about page</span>
+      <span class="gradient-text"
+        >Your navigation is currently blocked '-'</span
+      >
     </h1>
   </div>
 </template>
-
-<style lang="scss" scoped>
+  
+  <style lang="scss" scoped>
 $gradient-start: #34495e;
 $gradient-end: #41b883;
 

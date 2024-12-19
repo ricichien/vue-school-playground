@@ -1,11 +1,23 @@
 <template>
   <div class="about">
     <h1>
-      <span class="gradient-text">This is the about page</span>
+      <!-- <span class="gradient-text">Calculator</span> -->
+      <CalculatorTool />
     </h1>
   </div>
 </template>
 
+<script setup lang="ts">
+// import { createApp } from 'vue'
+// import CalculatorTool from '../components/CalculatorTool.vue';
+import CalculatorTool from '@/components/CalculatorTool.vue';
+
+// const app = createApp({})
+
+// app.component('CalculatorTool', CalculatorTool)
+
+</script>
+  
 <style lang="scss" scoped>
 $gradient-start: #34495e;
 $gradient-end: #41b883;
@@ -58,3 +70,6 @@ $gradient-end: #41b883;
   }
 }
 </style>
+  
+  
+  

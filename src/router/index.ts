@@ -1,5 +1,7 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+
+const navigationBlockedRoute = '/navigation-blocked';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,16 +12,36 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import('../views/AboutView.vue'),
+  },
+  {
+    path: '/welcome',
+    name: 'welcome',
+    component: () => import('../views/WelcomeView.vue')
+  },
+  {
+    path: navigationBlockedRoute,
+    name: 'navigation-blocked',
+    component: () => import('../views/NavigationBlockedView.vue')
   }
-]
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  const isBlocked = JSON.parse(localStorage.getItem('navigationBlock') || 'false');
+  console.log(`Tentativa de acessar rota '${to.path}'. Bloqueado: ${isBlocked}`);
+  if (isBlocked && to.path !== navigationBlockedRoute) {
+    console.log(`Navegação bloqueada. Redirecionando para ${navigationBlockedRoute}`);
+    next(navigationBlockedRoute);
+  } else {
+    console.log(`Navegação permitida. Continuando para ${to.path}`);
+    next();
+  }
+});
+
+export default router;
+
